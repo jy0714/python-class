@@ -1,0 +1,226 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "095ce241-c723-4681-9fcf-a65c4cf5f1c0",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>ranking</th>\n",
+       "      <th>bookname</th>\n",
+       "      <th>authors</th>\n",
+       "      <th>publication_year</th>\n",
+       "      <th>bookImageURL</th>\n",
+       "      <th>class_nm</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1</td>\n",
+       "      <td>우리가 빛의 속도로 갈 수 없다면 :김초엽 소설</td>\n",
+       "      <td>지은이: 김초엽</td>\n",
+       "      <td>2019</td>\n",
+       "      <td>https://image.aladin.co.kr/product/19359/16/co...</td>\n",
+       "      <td>문학 &gt; 한국문학 &gt; 소설</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>2</td>\n",
+       "      <td>달러구트 꿈 백화점.이미예 장편소설</td>\n",
+       "      <td>지은이: 이미예</td>\n",
+       "      <td>2020</td>\n",
+       "      <td>https://image.aladin.co.kr/product/24512/70/co...</td>\n",
+       "      <td>문학 &gt; 한국문학 &gt; 소설</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>3</td>\n",
+       "      <td>지구에서 한아뿐 :정세랑 장편소설</td>\n",
+       "      <td>지은이: 정세랑</td>\n",
+       "      <td>2019</td>\n",
+       "      <td>https://image.aladin.co.kr/product/19804/82/co...</td>\n",
+       "      <td>문학 &gt; 한국문학 &gt; 소설</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>4</td>\n",
+       "      <td>시선으로부터, :정세랑 장편소설</td>\n",
+       "      <td>지은이: 정세랑</td>\n",
+       "      <td>2020</td>\n",
+       "      <td>https://image.aladin.co.kr/product/24131/37/co...</td>\n",
+       "      <td>문학 &gt; 한국문학 &gt; 소설</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>5</td>\n",
+       "      <td>아몬드 :손원평 장편소설</td>\n",
+       "      <td>지은이: 손원평</td>\n",
+       "      <td>2017</td>\n",
+       "      <td>http://image.aladin.co.kr/product/16839/4/cove...</td>\n",
+       "      <td>문학 &gt; 한국문학 &gt; 소설</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   ranking                     bookname   authors publication_year  \\\n",
+       "0        1  우리가 빛의 속도로 갈 수 없다면 :김초엽 소설   지은이: 김초엽             2019   \n",
+       "1        2         달러구트 꿈 백화점.이미예 장편소설   지은이: 이미예             2020   \n",
+       "2        3          지구에서 한아뿐 :정세랑 장편소설   지은이: 정세랑             2019   \n",
+       "3        4           시선으로부터, :정세랑 장편소설   지은이: 정세랑             2020   \n",
+       "4        5               아몬드 :손원평 장편소설   지은이: 손원평             2017   \n",
+       "\n",
+       "                                        bookImageURL        class_nm  \n",
+       "0  https://image.aladin.co.kr/product/19359/16/co...  문학 > 한국문학 > 소설  \n",
+       "1  https://image.aladin.co.kr/product/24512/70/co...  문학 > 한국문학 > 소설  \n",
+       "2  https://image.aladin.co.kr/product/19804/82/co...  문학 > 한국문학 > 소설  \n",
+       "3  https://image.aladin.co.kr/product/24131/37/co...  문학 > 한국문학 > 소설  \n",
+       "4  http://image.aladin.co.kr/product/16839/4/cove...  문학 > 한국문학 > 소설  "
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#'C:\\\\Users\\\\JY\\\\cb_filter_0604_simple.csv\n",
+    "\n",
+    "import pandas as pd\n",
+    "\n",
+    "\n",
+    "books_df = pd.read_json(\"C:\\\\Users\\\\JY\\\\20s_best_book.json\")\n",
+    "books = books_df[['ranking', 'bookname', 'authors', 'publication_year', 'bookImageURL', 'class_nm']]\n",
+    "\n",
+    "books.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b4bf42d1-7378-401b-891c-aa8964207bd0",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "73df14c3-c88e-46d3-8dc1-83e337e7a8f2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from bs4 import BeautifulSoup\n",
+    "import requests\n",
+    "\n",
+    "isbn = 9791190090018      # '우리가 빛의 속도로 갈 수 없다면'의 ISBN\n",
+    "url = 'http://www.yes24.com/Product/Search?domain=BOOK&query={}'\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "b63e96e2-3a5c-4459-bafe-f5b64b16a696",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def get_page_cnt(isbn):\n",
+    "    # Yes24 도서 검색 페이지 URL\n",
+    "    url = 'http://www.yes24.com/Product/Search?domain=BOOK&query={}'\n",
+    "    # URL에 ISBN을 넣어 HTML 가져옵니다.\n",
+    "    r = requests.get(url.format(isbn))\n",
+    "    soup = BeautifulSoup(r.text, 'html.parser')   # HTML 파싱\n",
+    "    # 검색 결과에서 해당 도서를 선택합니다.\n",
+    "    prd_info = soup.find('a', attrs={'class':'gd_name'})\n",
+    "    if prd_info == None:\n",
+    "        return ''\n",
+    "    # 도서 상세 페이지를 가져옵니다.\n",
+    "    url = 'http://www.yes24.com'+prd_info['href']\n",
+    "    r = requests.get(url)\n",
+    "    soup = BeautifulSoup(r.text, 'html.parser')\n",
+    "    # 상품 상세정보 div를 선택합니다.\n",
+    "    prd_detail = soup.find('div', attrs={'id':'infoset_specific'})\n",
+    "    # 테이블에 있는 tr 태그를 가져옵니다.\n",
+    "    prd_tr_list = prd_detail.find_all('tr')\n",
+    "    # 쪽수가 들어 있는 th를 찾아 td에 담긴 값을 반환합니다.\n",
+    "    for tr in prd_tr_list:\n",
+    "        if tr.find('th').get_text() == '쪽수, 무게, 크기':\n",
+    "            return tr.find('td').get_text().split()[0]\n",
+    "    return ''"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "833c40d6-2da0-4c10-bf11-40b2545c071b",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'344쪽'"
+      ]
+     },
+     "execution_count": 24,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "get_page_cnt(9791190090018)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fbea7148-bf81-4070-9432-d4fec6d24181",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.13.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
